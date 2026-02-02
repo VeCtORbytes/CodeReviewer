@@ -29,7 +29,9 @@ function App() {
     setLoading(true);
 
     try {
-      const response = await fetch('http://localhost:8008/api/review', {
+     const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:8008';
+
+      const response = await fetch(`${API_URL}/api/review`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

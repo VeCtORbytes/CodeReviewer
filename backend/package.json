@@ -9,7 +9,10 @@
   "engines": {
     "node": "18.x"
   },
-  "keywords": ["openai", "code-review"],
+  "keywords": [
+    "openai",
+    "code-review"
+  ],
   "author": "",
   "license": "ISC",
   "description": "Backend for Code Reviewer AI",
@@ -18,6 +21,7 @@
     "cors": "^2.8.6",
     "dotenv": "^17.2.3",
     "express": "^5.2.1",
+    "groq-sdk": "^0.37.0",
     "openai": "^6.17.0"
   }
 }
