@@ -68,8 +68,11 @@ function App() {
       <header className="app-header">
         <div className="header-content">
           <div className="header-left">
-            <h1>Bet Project - CodeReview</h1>
-            <p>Be Ready Taru Pathak</p>
+            <div className="logo-section">
+               <span className="logo-icon"></span>
+               <h1>ReviewAI</h1>
+            </div>
+              <p>AI-Powered Code Review Platform</p>
           </div>
           <div className="header-right">
             <button
