@@ -22,10 +22,15 @@
   --text-dark: #f1f5f9;
   --text-dark-secondary: #cbd5e1;
   --border-dark: #334155;
+
+  --radius: 14px;
+  --shadow-soft: 0 15px 40px rgba(15, 23, 42, 0.12);
+  --glass-light: linear-gradient(120deg, #f8fafc, #eef2ff);
+  --glass-dark: linear-gradient(120deg, #0f172a, #111827);
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
   transition: background-color 0.3s, color 0.3s;
 }
 
@@ -47,20 +52,22 @@ body {
 
 .app-header {
   border-bottom: 1px solid;
-  padding: 20px 0;
+  padding: 18px 0;
   position: sticky;
   top: 0;
   z-index: 100;
   transition: all 0.3s;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
 }
 
 .app.light-mode .app-header {
-  background: var(--bg-light);
+  background: var(--glass-light);
   border-color: var(--border-light);
 }
 
 .app.dark-mode .app-header {
-  background: var(--bg-dark-secondary);
+  background: var(--glass-dark);
   border-color: var(--border-dark);
 }
 
@@ -92,29 +99,31 @@ body {
 
 .theme-toggle {
   background: none;
-  border: none;
+  border: 1px solid transparent;
   font-size: 24px;
   cursor: pointer;
-  padding: 8px;
-  border-radius: 8px;
-  transition: all 0.3s;
+  padding: 8px 10px;
+  border-radius: 10px;
+  transition: all 0.2s ease;
 }
 
 .app.light-mode .theme-toggle:hover {
   background: var(--bg-light-secondary);
+  border-color: var(--border-light);
 }
 
 .app.dark-mode .theme-toggle:hover {
   background: var(--bg-dark);
+  border-color: var(--border-dark);
 }
 
 .app-main {
   flex: 1;
-  padding: 40px 20px;
+  padding: 48px 18px 64px;
 }
 
 .container {
-  max-width: 1400px;
+  max-width: 1200px;
   margin: 0 auto;
 }
 
@@ -128,7 +137,7 @@ body {
 .right-panel {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 22px;
 }
 
 .code-input-container,
@@ -137,9 +146,10 @@ body {
 .loading-box,
 .review-results,
 .empty-state {
-  border-radius: 12px;
+  border-radius: var(--radius);
   padding: 25px;
   transition: all 0.3s;
+  box-shadow: var(--shadow-soft);
 }
 
 .app.light-mode .code-input-container,
@@ -166,21 +176,21 @@ body {
 .history-panel h3,
 .review-results h2 {
   font-size: 18px;
-  font-weight: 600;
+  font-weight: 700;
   margin-bottom: 15px;
 }
 
 .code-textarea {
   width: 100%;
-  min-height: 280px;
-  padding: 15px;
+  min-height: 320px;
+  padding: 16px;
   border: 1px solid;
-  border-radius: 8px;
-  font-family: 'Courier New', monospace;
-  font-size: 14px;
-  line-height: 1.6;
+  border-radius: 12px;
+  font-family: 'JetBrains Mono', 'Courier New', monospace;
+  font-size: 15px;
+  line-height: 1.7;
   resize: vertical;
-  transition: all 0.3s;
+  transition: all 0.2s;
 }
 
 .app.light-mode .code-textarea {
@@ -198,13 +208,13 @@ body {
 .code-textarea:focus {
   outline: none;
   border-color: var(--primary);
-  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.22);
 }
 
 .code-meta {
   font-size: 12px;
   opacity: 0.6;
-  margin-top: 10px;
+  margin-top: 12px;
 }
 
 .code-actions {
@@ -214,34 +224,37 @@ body {
 }
 
 .btn {
-  padding: 10px 20px;
+  padding: 11px 20px;
   border: none;
-  border-radius: 8px;
+  border-radius: 10px;
   font-size: 14px;
-  font-weight: 600;
+  font-weight: 700;
   cursor: pointer;
-  transition: all 0.3s;
+  transition: all 0.2s ease;
   flex: 1;
+  position: relative;
+  outline: none;
+}
+
+.btn:focus-visible {
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.35);
 }
 
 .btn-primary {
-  background: var(--primary);
+  background: linear-gradient(135deg, #6366f1, #4f46e5);
   color: white;
 }
 
 .btn-primary:hover:not(:disabled) {
   background: var(--primary-dark);
-  transform: translateY(-2px);
+  transform: translateY(-1px);
+  box-shadow: 0 10px 24px rgba(99, 102, 241, 0.28);
 }
 
 .btn-secondary {
-  background: transparent;
-  border: 1px solid;
+  background: rgba(99, 102, 241, 0.07);
+  border: 1px solid var(--border-light);
   color: var(--primary);
-}
-
-.app.light-mode .btn-secondary {
-  border-color: var(--border-light);
 }
 
 .app.dark-mode .btn-secondary {
@@ -259,20 +272,29 @@ body {
 }
 
 .error-box {
-  background: rgba(239, 68, 68, 0.1);
-  border: 1px solid rgba(239, 68, 68, 0.3);
+  background: rgba(239, 68, 68, 0.08);
+  border: 1px solid rgba(239, 68, 68, 0.35);
   color: var(--error);
   padding: 20px;
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.error-box::before {
+  content: "⚠️";
+  font-size: 18px;
+  line-height: 1;
 }
 
 .error-box h4 {
-  margin-bottom: 10px;
+  margin-bottom: 6px;
 }
 
 .error-box small {
   opacity: 0.8;
   display: block;
-  margin-top: 5px;
+  margin-top: 4px;
 }
 
 .loading-box {
@@ -280,14 +302,14 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  min-height: 400px;
-  gap: 20px;
+  min-height: 360px;
+  gap: 24px;
 }
 
 .spinner {
-  width: 40px;
-  height: 40px;
-  border: 3px solid;
+  width: 44px;
+  height: 44px;
+  border: 4px solid;
   border-top-color: var(--primary);
   border-radius: 50%;
   animation: spin 1s linear infinite;
@@ -305,19 +327,40 @@ body {
   to { transform: rotate(360deg); }
 }
 
+.skeleton {
+  width: 100%;
+  height: 160px;
+  border-radius: var(--radius);
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.08) 25%,
+    rgba(255, 255, 255, 0.16) 37%,
+    rgba(255, 255, 255, 0.08) 63%
+  );
+  background-size: 400% 100%;
+  animation: shimmer 1.2s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+  100% {
+    background-position: -400% 0;
+  }
+}
+
 .empty-state {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  min-height: 400px;
+  min-height: 380px;
   gap: 15px;
-  opacity: 0.6;
+  opacity: 0.75;
+  text-align: center;
 }
 
 .empty-icon {
   font-size: 48px;
-  opacity: 0.3;
+  opacity: 0.35;
 }
 
 .empty-state h3 {
@@ -331,7 +374,7 @@ body {
 }
 
 .history-panel {
-  max-height: 400px;
+  max-height: 420px;
   flex: 1;
 }
 
@@ -339,16 +382,20 @@ body {
   display: flex;
   flex-direction: column;
   gap: 10px;
-  max-height: 300px;
+  max-height: 320px;
   overflow-y: auto;
 }
 
 .history-item {
   padding: 12px;
-  border-radius: 8px;
+  border-radius: 10px;
   cursor: pointer;
-  transition: all 0.3s;
+  transition: all 0.2s;
   border: 1px solid;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 10px;
 }
 
 .app.light-mode .history-item {
@@ -365,28 +412,30 @@ body {
   border-color: var(--primary);
   background: var(--primary);
   color: white;
+  transform: translateX(2px);
 }
 
 .history-code {
-  font-family: monospace;
+  font-family: 'JetBrains Mono', monospace;
   font-size: 12px;
-  word-break: break-all;
-  margin-bottom: 8px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .history-meta {
   display: flex;
-  justify-content: space-between;
+  gap: 8px;
   align-items: center;
   font-size: 11px;
-  opacity: 0.7;
+  opacity: 0.8;
 }
 
 .issue-badge {
-  background: rgba(99, 102, 241, 0.2);
+  background: rgba(99, 102, 241, 0.16);
   padding: 2px 8px;
-  border-radius: 4px;
-  font-weight: 600;
+  border-radius: 6px;
+  font-weight: 700;
 }
 
 .time {
@@ -446,9 +495,14 @@ body {
 
 .issue-card {
   padding: 15px;
-  border-radius: 8px;
+  border-radius: 12px;
+  border: 1px solid var(--border-light);
   border-left: 4px solid;
-  transition: all 0.3s;
+  transition: all 0.2s;
+}
+
+.app.dark-mode .issue-card {
+  border-color: var(--border-dark);
 }
 
 .issue-card.critical {
@@ -491,14 +545,14 @@ body {
 }
 
 .issue-title {
-  font-weight: 600;
-  font-size: 14px;
+  font-weight: 700;
+  font-size: 15px;
   margin: 8px 0;
 }
 
 .line-hint {
   font-size: 12px;
-  opacity: 0.6;
+  opacity: 0.65;
   font-family: monospace;
   margin-bottom: 10px;
 }
@@ -556,14 +610,14 @@ body {
 
 @media (max-width: 640px) {
   .app-main {
-    padding: 20px 10px;
+    padding: 20px 10px 36px;
   }
 
   .code-input-container,
   .history-panel,
   .review-results,
   .empty-state {
-    padding: 15px;
+    padding: 16px;
   }
 
   .results-summary {
