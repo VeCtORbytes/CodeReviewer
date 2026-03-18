@@ -77,6 +77,7 @@ function App() {
           <div className="header-right">
             <button
               className="theme-toggle"
+              aria-label={darkMode ? 'Switch to light mode' : 'Switch to dark mode'}
               onClick={() => setDarkMode(!darkMode)}
               title={darkMode ? 'Light mode' : 'Dark mode'}
             >
@@ -127,6 +128,7 @@ function App() {
                 <div className="loading-box">
                   <div className="spinner"></div>
                   <p>Analyzing code...</p>
+                  <div className="skeleton"></div>
                 </div>
               )}
 
